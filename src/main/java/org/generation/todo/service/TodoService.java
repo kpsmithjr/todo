@@ -2,6 +2,7 @@ package org.generation.todo.service;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 
 import javax.transaction.Transactional;
 
@@ -21,7 +22,13 @@ public class TodoService {
   }
 
   public Todo getById(Long id) {
-    return todoRepository.findById(id).orElse(null);
+    Optional<Todo> todo = todoRepository.findById(id);
+
+    if(!todo.isEmpty()) {
+      throw new IllegalStateException("No To Do item with id " + id);
+    }
+
+    return null;
   }
 
   public void add(Todo todo) {
