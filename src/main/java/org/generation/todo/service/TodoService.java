@@ -25,10 +25,10 @@ public class TodoService {
     Optional<Todo> todo = todoRepository.findById(id);
 
     if(!todo.isEmpty()) {
-      throw new IllegalStateException("No To Do item with id " + id);
+      throw new IllegalStateException("No to do item with id " + id);
     }
 
-    return null;
+    return todo.get();
   }
 
   public void add(Todo todo) {
