@@ -21,14 +21,14 @@ import lombok.RequiredArgsConstructor;
 public class TodoController {
   private final TodoService todoService;
 
-  @GetMapping("/all")
-  public List<Todo> getAll() {
-    return todoService.getAll();
+  @GetMapping("/all/{appUserId}")
+  public List<Todo> getAll(@PathVariable Long appUserId) {
+    return todoService.getAll(appUserId);
   }
 
-  @GetMapping("/{id}")
-  public Todo getById(@PathVariable Long id) {
-    return todoService.getById(id);
+  @GetMapping("/{appUserId}/{id}")
+  public Todo getById(@PathVariable Long appUserId, @PathVariable Long id) {
+    return todoService.getById(id, appUserId);
   }
 
   @PostMapping

@@ -19,6 +19,8 @@ public class Todo {
   @Id
   @GeneratedValue
   private Long id;
+  @Column(nullable = false, updatable = false)
+  private Long appUserId;
   @Column(nullable = false)
   private String description;
   @Column(nullable = false)

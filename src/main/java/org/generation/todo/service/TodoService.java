@@ -7,6 +7,7 @@ import java.util.Optional;
 import javax.transaction.Transactional;
 
 import org.generation.todo.entity.Todo;
+import org.generation.todo.repository.AppUserRepositoty;
 import org.generation.todo.repository.TodoRepository;
 import org.springframework.stereotype.Service;
 
@@ -16,22 +17,47 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class TodoService {
   private final TodoRepository todoRepository;
+  private final AppUserRepositoty appUserRepositoty;
 
-  public List<Todo> getAll() {
-    return todoRepository.findAll();
+  public List<Todo> getAll(Long appUserId) {
+    boolean userExits = appUserRepositoty.existsById(appUserId);
+
+    if (!userExits) {
+      throw new IllegalStateException("Invalid appUserId " + appUserId);
+    }
+
+    return todoRepository.findAllByAppUserId(appUserId);
   }
 
-  public Todo getById(Long id) {
-    Optional<Todo> todo = todoRepository.findById(id);
+  public Todo getById(Long id, Long appUserId) {
+    boolean userExits = appUserRepositoty.existsById(appUserId);
 
-    if(!todo.isEmpty()) {
+    if (!userExits) {
+      throw new IllegalStateException("Invalid appUserId " + appUserId);
+    }
+
+    Optional<Todo> optionalTodo = todoRepository.findById(id);
+
+    if(optionalTodo.isEmpty()) {
       throw new IllegalStateException("No to do item with id " + id);
     }
 
-    return todo.get();
+    Todo todo = optionalTodo.get();
+
+    if (todo.getAppUserId() != appUserId) {
+      throw new IllegalStateException("Not athourized");
+    }
+
+    return todo;
   }
 
   public void add(Todo todo) {
+    boolean userExits = appUserRepositoty.existsById(todo.getAppUserId());
+
+    if (!userExits) {
+      throw new IllegalStateException("Invalid appUserId " + todo.getAppUserId());
+    }
+
     todoRepository.save(todo);
   }
 
@@ -39,9 +65,9 @@ public class TodoService {
     boolean idExists = todoRepository.existsById(id);
 
     if (!idExists) {
-      throw new IllegalStateException("No To Do item with id " + id + " exists");
+      throw new IllegalStateException("No do fo item with id " + id + " exists");
     }
-
+ 
     todoRepository.deleteById(id);
   }
 
