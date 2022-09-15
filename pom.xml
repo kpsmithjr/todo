@@ -46,16 +46,16 @@
 			<scope>runtime</scope>
 		</dependency> -->
 
-		    <dependency>
-        <groupId>org.apache.tomcat</groupId>
-        <artifactId>tomcat-jdbc</artifactId>
+		<dependency>
+      <groupId>org.apache.tomcat</groupId>
+      <artifactId>tomcat-jdbc</artifactId>
     </dependency>
 
     <!-- PostgreSQL used in Staging and Production environment, e.g. on Heroku -->
     <dependency>
-        <groupId>org.postgresql</groupId>
-        <artifactId>postgresql</artifactId>
-        <version>42.5.0</version>
+      <groupId>org.postgresql</groupId>
+      <artifactId>postgresql</artifactId>
+      <version>42.5.0</version>
     </dependency>
 
 		<dependency>
@@ -89,14 +89,14 @@
 					</excludes>
 				</configuration>
 			</plugin>
-			<plugin>
+			<!-- <plugin>
         <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-compiler-plugin</artifactId>
           <configuration>
             <source>1.17</source>
             <target>1.17</target>
           </configuration>
-        </plugin>
+        </plugin> -->
 		</plugins>
 	</build>
 
