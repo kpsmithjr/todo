@@ -17,12 +17,15 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class Todo {
   @Id
-  @GeneratedValue
+  @GeneratedValue(generator = "TodoSequence")
   private Long id;
+
   @Column(nullable = false, updatable = false)
   private Long appUserId;
+
   @Column(nullable = false)
   private String description;
+  
   @Column(nullable = false)
   private LocalDate targetDate;
 }
