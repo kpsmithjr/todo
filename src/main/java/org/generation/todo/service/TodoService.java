@@ -36,12 +36,6 @@ public class TodoService {
 
     Long appUserId = appUser.getId();
 
-    boolean userExits = appUserRepositoty.existsById(appUserId);
-
-    if (!userExits) {
-      throw new IllegalStateException("Invalid appUserId " + appUserId);
-    }
-
     return todoRepository.findAllByAppUserId(appUserId);
   }
 
