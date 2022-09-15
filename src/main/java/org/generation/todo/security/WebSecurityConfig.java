@@ -36,6 +36,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     http.authorizeHttpRequests().antMatchers(HttpMethod.POST, "/api/v1/appuser").permitAll();
     http.authorizeHttpRequests().antMatchers(HttpMethod.GET, "/api/v1/todo/*").hasAnyAuthority("USER");
     http.authorizeHttpRequests().antMatchers(HttpMethod.POST, "/api/v1/todo/*").hasAnyAuthority("USER");
+    http.authorizeHttpRequests().antMatchers(HttpMethod.DELETE, "/api/v1/todo/*").hasAnyAuthority("USER");
+    http.authorizeHttpRequests().antMatchers(HttpMethod.PUT, "/api/v1/todo/*").hasAnyAuthority("USER");
     http.authorizeHttpRequests().anyRequest().authenticated();
     // http.authorizeHttpRequests().anyRequest().permitAll();
     http.addFilter(new CustomAuthenticationFilter (authenticationManagerBean()));
