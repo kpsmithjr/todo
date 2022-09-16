@@ -5,6 +5,7 @@ import java.util.List;
 import org.generation.todo.entity.Todo;
 import org.generation.todo.entity.TodoDto;
 import org.generation.todo.service.TodoService;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -20,6 +21,7 @@ import lombok.RequiredArgsConstructor;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/v1/todo")
+@CrossOrigin("*")
 public class TodoController {
   private final TodoService todoService;
 
